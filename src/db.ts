@@ -20,7 +20,7 @@ export interface IDb {
   read: (args: { id: string }) => Promise<IDb_Read_Response>;
   post: (args: { record: IDb_New_Record }) => Promise<IDb_Post_Response>; // create
   put: (args: { record: IDb_Record }) => Promise<IDb_Put_Response>; // update
-  query: (args: { type: string; where: object }) => Promise<IDb_Query_Response>;
+  query: (args: { type: string; where: { [propertyName: string]: string | number | Date | boolean } }) => Promise<IDb_Query_Response>;
 }
 
 export const createDb = (): IDb => {
