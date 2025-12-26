@@ -62,16 +62,31 @@ export interface IHRApp {
 export const createHRApp = (): IHRApp => {
   const db = createDb();
 
-
   return {
     employeeWithCityList: async () => {
-      return [];
+      const result = await db.query({ type: 'employees', where: {} });
+      
+      return result.items.map((item) => {
+        const employee = item.data as unknown as import("./types").IEmployeeDbModel;
+        return {
+          firstName: employee.firstName,
+          city: employee.cityName,
+        };
+      });
     },
     employeeWithPositionList: async () => {
-      return [];
+      const result = await db.query({ type: 'employees', where: {} });
+
+      return result.items.map((item) => {
+        const employee = item.data as unknown as import("./types").IEmployeeDbModel;
+        return {
+          firstName: employee.firstName,
+          position: employee.positionName,
+          division: employee.divisionName,
+        };
+      });
     },
     update: async () => {
-      // этот метод имплементировать не нужно
     },
   };
 };
